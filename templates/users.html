@@ -1,0 +1,251 @@
+  {% extends 'layout.html' %}
+{% block titulo %} ADMINISTRADOR {% endblock %}
+{% block contenido  %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary py-2 shadow-sm fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand letra1 fw-bold" style="color: rgb(0, 0, 0);" href="/home-admin">FASHLY</a>
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/home-admin">
+            <i class="fa-solid fa-house fa-bounce" style="color: #000000;"></i>
+          </a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" style="color: #000000;" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">  
+            operaciones
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/sUsuario">Usuarios</a></li>
+            <li><a class="dropdown-item" href="/"></a></li>
+            <li><hr class="dropdown-divider"></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link">{{current_user.nombre}}</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/signout" title="Salir">
+            <i class="fa-solid fa-right-from-bracket" style="color: #000000;"></i>
+          </a>
+        </li>
+      </ul>
+
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button type="button" class="btn btn-outline-primary">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<style>
+  body {
+    padding-top: 65px; /* Ajusta según el alto de tu navbar */
+  }
+</style>
+<br><br><br>
+
+  <div class="container">
+{% with mensajes = get_flashed_messages(category_filter=['usuarios']) %}
+  {% if mensajes %}
+    {% for m in mensajes %}
+      <div class="alert alert-success alert-dismissible fade show animate__animated animate__fadeInDown" role="alert">
+        <i class="fa-solid fa-user-plus me-2"></i> {{ m }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+    <table class="table table-dark table-hover">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">NOMBRE</th>
+          <th scope="col">CORREO</th>
+          <th scope="col">TELEFONO</th>
+          <th scope="col">FECHA REGISTRO</th>
+          <th scope="col">PERFIL</th>
+          <th scope="col" colspan="2">
+            <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insertar">
+            <i class="fa-solid fa-user-plus"></i>
+          </button>
+          </th>
+        </tr>
+
+<!-- Modal registrar  -->
+<div class="modal fade" id="insertar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="/IUsuario" method="post">
+      <div class="modal-body">
+          <h2>REGISTER</h2>
+          <div class="input-container">
+            <input style="color: rgb(0, 0, 0);" type="text" id="nombre" name="nombre" required>
+            <label style="color:rgb(0, 0, 0);" for="nombre">NAME</label>
+          </div>
+          <div class="input-container">
+            <input style="color: rgb(0, 0, 0);" type="text" id="apellido" name="apellido" required>
+            <label style="color:rgb(0, 0, 0);" for="apellido">LASTNAME</label>
+          </div>
+          <div class="input-container">
+            <input style="color: rgb(0, 0, 0);"type="tel" id="telefono" name="telefono" required>
+            <label  style="color:rgb(0, 0, 0);" for="telefono">TELEPHONE</label>
+          </div>
+          <div class="input-container">
+            <input style="color: rgb(0, 0, 0);" type="correo" id="correo" name="correo" required>
+            <label style="color:rgb(0, 0, 0);" for="correo">EMAIL</label>
+          </div>
+          <div class="input-container">
+            <input style="color: rgb(0, 0, 0);" type="clave" id="clave" name="clave" required>
+            <label style="color:rgb(0, 0, 0);" for="clave">PASSWORD</label>
+          </div>
+          <div class="input-container">
+            <select name="perfil">
+              <option value="A">Administrador</option>
+              <option value="C">Cliente</option>
+            </select>
+            <label style="color:rgb(255, 255, 255);" for="clave">PERFIL</label>
+          </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" style="background-color: black;" class="btn btn-primary">Registrar</button>
+      </div>
+    
+        </form>
+  </div>
+</div>
+</div>
+      </thead>
+      <tbody>
+        {%  for u in usuarios %}
+        <tr>
+          <th scope="row">{{u[0]}}</th>
+          <td>{{u[1]}}</td>
+          <td>{{u[2]}}</td>
+          <td>{{u[3]}}</td>
+          <td>{{u[5]}}</td>
+          <td>{{u[6]}}</td>
+          <td>{{u[7]}}</td>
+          <td>
+            <!-- boton editar -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editar{{u[0]}}">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+          </td>
+          <td>
+            <!-- Button  eliminar -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#eliminar{{u[0]}}">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+            
+          </td>
+        </tr>
+        <!-- Modal editar -->
+<div class="modal fade" id="editar{{u[0]}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">  
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="/uUsuario/{{u[0]}}" method="post">
+      <div class="modal-body">
+          <h2>REGISTER</h2>
+          <div class="input-container">
+            <input style="color: rgb(0, 0, 0);" type="text" id="nombre" name="nombre" value="{{u[1]}}" required>
+            <label style="color:rgb(0, 0, 0);" for="nombre">NAME</label>
+          </div>
+          <div class="input-container">
+            <input style="color: rgb(0, 0, 0);" type="text" id="apellido" name="apellido" value="{{u[2]}}" required>
+            <label style="color:rgb(0, 0, 0);" for="apellido" >LASTNAME</label>
+          </div>
+          <div class="input-container">
+            <input style="color: rgb(0, 0, 0);" type="tel" id="telefono" name="telefono" value="{{u[5]}}" required>
+            <label style="color:rgb(0, 0, 0);" for="telefono"  >TELEPHONE</label>
+          </div>
+          <div class="input-container">
+            <input style="color: rgb(0, 0, 0);" type="correo" id="correo" name="correo" value="{{u[3]}}" required>
+            <label style="color:rgb(0, 0, 0);" for="correo" >EMAIL</label>
+          </div>
+          <div class="input-container">
+            <select name="perfil">
+              <option value="{{u[7]}}">{{u[7]}}</option>
+              <option value="A">Administrador</option>
+              <option value="C">Cliente</option>
+            </select>
+            <label style="color:rgb(255, 255, 255);" for="clave">PERFIL</label>
+          </div>
+        
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Registrar</button>
+      </div>
+    
+        </form>
+  </div>
+</div>
+</div>
+
+<!-- button eliminar -->
+
+<!-- Modal eliminar -->
+<div class="modal fade" id="eliminar{{u[0]}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="/dUsuario/{{u[0]}}" method="post">
+      <div class="modal-body">
+        <p>¿seguro que desea eliminar el usuario {{u[1]}}? <i class="fa-solid fa-skull-crossbones fa-beat-fade fa-2xl" style="color: #ff0000;"></i></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancelar</button>
+        <button type="submit" style="background-color: #000000;" class="btn btn-danger">eliminar</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+<video width="640" height="360" controls>
+  <source src="/static/img/motivacionxd.mp4" type="video/mp4">
+  Tu navegador no soporta el video HTML5.
+</video>
+<video width="640" height="360" controls>
+  <source src="/static/img/motivacion2xd.mp4" type="video/mp4">
+  Tu navegador no soporta el video HTML5.
+</video>
+<video width="640" height="360" controls>
+  <source src="/static/img/motivacion3xd.mp4" type="video/mp4">
+  Tu navegador no soporta el video HTML5.
+</video>
+<video width="640" height="360" controls>
+  <source src="/static/img/motivacion4xd.mp4" type="video/mp4">
+  Tu navegador no soporta el video HTML5.
+</video>
+{% endblock %}

@@ -1,0 +1,243 @@
+{% extends 'layout.html' %}
+{% block titulo %} SIKIBIDI {% endblock %}
+{% block contenido %}
+
+
+<b><b><CENter><h2>FASHLY</h2></CENter></b></b>
+
+
+
+{% with mensajes = get_flashed_messages(category_filter=['carrito']) %}
+  {% if mensajes %}
+    {% for m in mensajes %}
+      <div class="alert alert-warning alert-dismissible fade show animate__animated animate__bounceIn" role="alert">
+        <i class="fa-solid fa-cart-shopping me-2"></i> {{ m }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+<br>
+
+<div class="container2">
+  <form action="/uCarritto" method="post">
+    <div class="row container">
+      <div class="col-lg-8">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          {% if carritto %}
+            {% for r1 in carritto %}
+              {% set precio = r1[10]|float %}
+              {% set cantidad = r1[4]|int %}
+              {% set importe = r1[5]|float %}
+              <div class="col">
+                <div class="card">
+                  <img src="/static/img/{{ r1[12] }}" alt="..." class="card-img-top">
+<div class="card-body">
+  <h5 class="card-title">{{ r1[8] }}</h5>
+  <p class="card-text">{{ r1[9] }}</p>
+  <p class="card-text">Precio: ${{ "%.2f"|format(precio) }}</p>
+  
+  <p class="card-text">
+    Cantidad:
+    <input type="number" value="{{ cantidad }}" readonly style="width: 60px; text-align: center;">
+    
+    <!-- Botón para disminuir cantidad -->
+    <a href="{{ url_for('decrementarCarritto', car_id=r1[0], precio=precio) }}" class="btn btn-sm btn-warning mx-2">
+      <i class="fa-solid fa-minus"></i>
+    </a>
+
+      <a href="{{ url_for('incrementarCarritto', car_id=r1[0], precio=precio) }}" class="btn btn-sm btn-success">
+    <i class="fa-solid fa-plus"></i>
+  </a>
+  </p>
+  
+  <p class="card-text">Importe: ${{ "%.2f"|format(importe) }}</p>
+  
+  <!-- Botón para eliminar todo -->
+  <a href="{{ url_for('dCarritto', car_id=r1[0]) }}" class="btn btn-danger">
+    <i class="fa-solid fa-trash-can"></i>
+  </a>
+</div>
+
+                </div>
+              </div>
+            {% endfor %}
+
+          {% else %}
+            <div class="col" style="color: blanchedalmond;">Sin productos</div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <p><a href="/home-user" class="btn btn-outline-dark btn-lg">Seguir comprando</a></p>
+        <p class="d-inline-flex gap-1">
+          <a class="btn btn-primary btn-lg btn-block" data-bs-toggle="collapse" href="#collapseExample">
+            Realizar compra
+          </a>
+        </p>
+
+<div class="collapse" id="collapseExample">
+  <div class="card card-body">
+    <h5 class="mb-3">Ingresa los datos de tu tarjeta</h5>
+
+    <!-- Métodos de pago -->
+    <div class="mb-3">
+      <label class="form-label">Selecciona método de pago:</label>
+      <div class="d-flex justify-content-around">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="metodoPago" id="oxxo" value="Oxxo" required>
+          <label class="form-check-label" for="oxxo">
+            <i class="fa-solid fa-store"></i> Oxxo
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="metodoPago" id="mastercard" value="MasterCard">
+          <label class="form-check-label" for="mastercard">
+            <i class="fab fa-cc-mastercard text-danger"></i> MasterCard
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="metodoPago" id="visa" value="Visa">
+          <label class="form-check-label" for="visa">
+            <i class="fab fa-cc-visa text-primary"></i> Visa
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Formulario -->
+    <form id="formPago" onsubmit="return procesarPago(event)">
+      <div class="mb-3">
+        <label for="cardNumber" class="form-label">Número de tarjeta</label>
+        <input type="text" class="form-control" id="cardNumber" placeholder="4444-4444-4444-4444" pattern="\d{4}-\d{4}-\d{4}-\d{4}" maxlength="19" required>
+        <div class="form-text text-danger">Debe tener 16 dígitos</div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="cardName" class="form-label">Nombre en la tarjeta</label>
+          <input type="text" class="form-control" id="cardName" placeholder="Juan Pérez" required>
+        </div>
+        <div class="col-md-3 mb-3">
+          <label for="expiryDate" class="form-label">Expira</label>
+          <input type="text" class="form-control" id="expiryDate" placeholder="MM/AA" pattern="\d{2}/\d{2}" required>
+        </div>
+        <div class="col-md-3 mb-3">
+          <label for="cvv" class="form-label">CVV</label>
+          <input type="password" class="form-control" id="cvv" placeholder="•••" pattern="\d{3}" maxlength="3" required>
+        </div>
+      </div>
+
+      
+    </form>
+    <!-- Botón fuera del form para activar el submit -->
+<form id="formPago">
+  <!-- Opciones de pago -->
+  <button type="submit" class="btn btn-success">Pagar</button>
+</form>
+
+  </div>
+</div>
+
+<!-- Modal -->
+
+
+<!-- Modal de pago exitoso -->
+<div class="modal fade" id="modalPagoExitoso" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center p-4">
+      <div class="modal-body">
+        <h5 class="modal-title mb-3">✅ ¡Pago realizado exitosamente!</h5>
+<button type="submit" id="btnAceptarPago" type="button" class="btn btn-primary mt-2" data-bs-dismiss="modal">
+  <a href="home-user">Aceptar</a>
+</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+
+document.getElementById('formPago').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    fetch('/procesar_pago', {
+        method: 'POST',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({})  // puedes enviar datos si es necesario
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            const modal = new bootstrap.Modal(document.getElementById('modalPagoExitoso'));
+            modal.show();
+        } else {
+            alert('Error al procesar el pago.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
+
+
+
+  document.getElementById('cardNumber').addEventListener('input', function (e) {
+    let value = e.target.value.replace(/\D/g, '').substring(0,16); // solo números y máx 16
+    let formatted = value.match(/.{1,4}/g); // agrupar en bloques de 4
+    e.target.value = formatted ? formatted.join('-') : '';
+  });
+
+  function procesarPago(event) {
+    event.preventDefault();
+    const form = document.getElementById('formPago');
+    if (form.checkValidity()) {
+      const modal = new bootstrap.Modal(document.getElementById('pagoExitosoModal'));
+      modal.show();
+    } else {
+      form.reportValidity();
+    }
+    return false;
+  }
+
+    document.getElementById('expiryDate').addEventListener('input', function (e) {
+    let value = e.target.value.replace(/\D/g, '').substring(0, 4); // solo números
+    if (value.length >= 3) {
+      e.target.value = value.substring(0, 2) + '/' + value.substring(2);
+    } else {
+      e.target.value = value;
+    }
+  });
+</script>
+
+
+
+                    <div class="col-12 mt-4">
+              <h2 class="text-end">Total general: ${{ "%.2f"|format(total) }}</h2>
+            </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="nueva-seccion-cartas">
+  <h2>TAMBIÉN TE PUDIERA AGRADAR ESTO</h2>
+  <nav>
+    <div class="marquee">
+      <div class="marquee-content">
+        <img src="/static/img/n1.png" width="420" height="300" alt="Imagen Biotecnologiá">
+        <img src="/static/img/n1.png" width="420" height="300" alt="Imagen Planta">
+        <img src="/static/img/n1.png" width="420" height="300" alt="Tecnologica">
+        <img src="/static/img/n1.png" width="420" height="300" alt="experimento">
+      </div>
+    </div>
+  </nav>
+</div>
+{% endblock %}

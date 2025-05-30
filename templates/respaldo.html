@@ -1,0 +1,343 @@
+{% extends 'layout.html' %}
+{% block titulo %} SIKIBIDI {% endblock %}
+{% block contenido  %}
+<!-- LOGO DE INCIO  LOL -->
+
+<div id="preloader">
+  <img src="/static/img/log2.png" alt="Logo de la marca">
+</div>
+
+  <!-- fucking nav bar -->
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand letra1" style="color: #000000;" href="/">FASHLY</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/"><i class="fa-solid fa-house fa-bounce" style="color: #0e0826;"></i></a>
+          </li>
+          <li class="nav-item">
+           
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">social networks </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#"><a class="nav-link" href="https://www.facebook.com/kanyewest">FACEBOOK<i class="fa-brands fa-facebook fa-spin fa-spin-reverse"></i></a>
+              <li><a class="dropdown-item" href="https://www.instagram.com/ye/">INSTAGRAM <i class="fa-brands fa-square-instagram"></i></li>
+              <li><hr class="dropdown-divider"></li>
+              
+            </ul>
+          </li>
+          
+           
+          
+            
+        
+          <li class="nav-item">
+            <a class="nav-link disabled" aria-disabled="true"></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">{{current_user.nombre}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/signout">
+              <i class="fa-solid fa-right-from-bracket" style="color: #000000;"></i>
+            </a>
+          </li>
+        </ul>
+        
+        
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button type="button" class="btn btn-outline-primary">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+ 
+
+  <!-- fucking catalogo -->
+  <header>
+    <h1 style="color: rgb(0, 0, 0);">Catálogo de Ropa <butto class="btn btn-outline-primary" ><i class="fa-solid fa-cart-shopping fa-bounce"></i></button></h1> 
+</header>
+
+
+ <!-- fucking carrusel -->
+
+ <div id="carouselExample" class="carousel slide">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="/static/img/mujer4.jpg" class="d-10 w-85" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="/static/img/mujer2.jpg" class="d-320 w-50" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="/static/img/mujer3.jpg" class="d-320 w-50" alt="...">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+   
+  <!-- INICIO DE TARJETAS DE YEEZY ROPA -->
+
+<!-- Carta 1 -->
+<div class="seccion-cartas">
+  <div class="carta">
+    <button class="boton-carta" onclick="toggleCartas('carta1')">Sección de ropa 1</button>
+    <div class="cartas2" id="carta1">
+      <div class="cartas-container">
+        <!-- Producto 1 -->
+        <div class="producto">
+          <img src="/static/img/ye1.jpg" alt="Imagen 1" onclick="openModal(this)">
+          <p class="precio">$250.00 MXN</p>
+          <button class="boton-carrito" onclick="agregarAlCarrito('Producto 1', 250)">Agregar al carrito</button>
+        </div>
+        <!-- Producto 2 -->
+        <div class="producto">
+          <img src="/static/img/ye2.jpg" alt="Imagen 2" onclick="openModal(this)">
+          <p class="precio">$300.00 MXN</p>
+          <button class="boton-carrito" onclick="agregarAlCarrito('Producto 2', 300)">Agregar al carrito</button>
+        </div>
+        <!-- Producto 3 -->
+        <div class="producto">
+          <img src="/static/img/n1.png" alt="Imagen 3" onclick="openModal(this)">
+          <p class="precio">$350.00 MXN</p>
+          <button class="boton-carrito" onclick="agregarAlCarrito('Producto 3', 350)">Agregar al carrito</button>
+        </div>
+        <!-- Producto 4 -->
+        <div class="producto">
+          <img src="/static/img/n1.png" alt="Imagen 4" onclick="openModal(this)">
+          <p class="precio">$200.00 MXN</p>
+          <button class="boton-carrito" onclick="agregarAlCarrito('Producto 4', 200)">Agregar al carrito</button>
+        </div>
+        <!-- Producto 5 -->
+        <div class="producto">
+          <img src="/static/img/n1.png" alt="Imagen 6" onclick="openModal(this)">
+          <p class="precio">$250.00 MXN</p>
+          <button class="boton-carrito" onclick="agregarAlCarrito('Producto 5', 250)">Agregar al carrito</button>
+        </div>
+        <!-- Producto 6 -->
+        <div class="producto">
+          <img src="/static/img/n1.png" alt="Imagen 6" onclick="openModal(this)">
+          <p class="precio">$270.00 MXN</p>
+          <button class="boton-carrito" onclick="agregarAlCarrito('Producto 6', 270)">Agregar al carrito</button>
+        </div>
+        <!-- Producto 7 -->
+        <div class="producto">
+          <img src="/static/img/n1.png" alt="Imagen 7" onclick="openModal(this)">
+          <p class="precio">$320.00 MXN</p>
+          <button class="boton-carrito" onclick="agregarAlCarrito('Producto 7', 320)">Agregar al carrito</button>
+        </div>
+        <!-- Producto 8 -->
+        <div class="producto">
+          <img src="/static/img/n1.png" alt="Imagen 8" onclick="openModal(this)">
+          <p class="precio">$180.00 MXN</p>
+          <button class="boton-carrito" onclick="agregarAlCarrito('Producto 8', 180)">Agregar al carrito</button>
+        </div>
+        <!-- Producto 9 -->
+        <div class="producto">
+          <img src="/static/img/n1.png" alt="Imagen 6" onclick="openModal(this)">
+          <p class="precio">$290.00 MXN</p>
+          <button class="boton-carrito" onclick="agregarAlCarrito('Producto 9', 290)">Agregar al carrito</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Carta 2 -->
+<div class="carta">
+  <button class="boton-carta" onclick="toggleCartas('carta2')">Sección de ropa 2</button>
+  <div class="cartas2" id="carta2">
+    <div class="cartas-container">
+      <!-- Productos dentro de la carta 2 -->
+      <div class="producto">
+        <img src="/static/img/ye2.jpg" alt="Imagen 2" onclick="openModal(this)">
+        <p class="precio">$300.00 MXN</p>
+        <button class="boton-carrito" onclick="agregarAlCarrito('Producto 2', 300)">Agregar al carrito</button>
+      </div>
+       <!-- Producto 3 -->
+       <div class="producto">
+        <img src="/static/img/n1.png" alt="Imagen 3" onclick="openModal(this)">
+        <p class="precio">$350.00 MXN</p>
+        <button class="boton-carrito" onclick="agregarAlCarrito('Producto 3', 350)">Agregar al carrito</button>
+      </div>
+      <!-- Producto 4 -->
+      <div class="producto">
+        <img src="/static/img/n1.png" alt="Imagen 4" onclick="openModal(this)">
+        <p class="precio">$200.00 MXN</p>
+        <button class="boton-carrito" onclick="agregarAlCarrito('Producto 4', 200)">Agregar al carrito</button>
+      </div>
+      <!-- Producto 5 -->
+      <div class="producto">
+        <img src="/static/img/n1.png" alt="Imagen 6" onclick="openModal(this)">
+        <p class="precio">$250.00 MXN</p>
+        <button class="boton-carrito" onclick="agregarAlCarrito('Producto 5', 250)">Agregar al carrito</button>
+      </div>
+      <!-- Producto 6 -->
+      <div class="producto">
+        <img src="/static/img/n1.png" alt="Imagen 6" onclick="openModal(this)">
+        <p class="precio">$270.00 MXN</p>
+        <button class="boton-carrito" onclick="agregarAlCarrito('Producto 6', 270)">Agregar al carrito</button>
+      </div>
+      <!-- Producto 7 -->
+      <div class="producto">
+        <img src="/static/img/n1.png" alt="Imagen 7" onclick="openModal(this)">
+        <p class="precio">$320.00 MXN</p>
+        <button class="boton-carrito" onclick="agregarAlCarrito('Producto 7', 320)">Agregar al carrito</button>
+      </div>
+      <!-- Producto 8 -->
+      <div class="producto">
+        <img src="/static/img/n1.png" alt="Imagen 8" onclick="openModal(this)">
+        <p class="precio">$180.00 MXN</p>
+        <button class="boton-carrito" onclick="agregarAlCarrito('Producto 8', 180)">Agregar al carrito</button>
+      </div>
+      <!-- Producto 9 -->
+      <div class="producto">
+        <img src="/static/img/n1.png" alt="Imagen 6" onclick="openModal(this)">
+        <p class="precio">$290.00 MXN</p>
+        <button class="boton-carrito" onclick="agregarAlCarrito('Producto 9', 290)">Agregar al carrito</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Carta 3 -->
+<div class="carta">
+  <button class="boton-carta" onclick="toggleCartas('carta3')">Sección de ropa 3</button>
+  <div class="cartas2" id="carta3">
+    <div class="cartas-container">
+      <!-- Productos dentro de la carta 3 -->
+      <div class="producto">
+        <img src="/static/img/n1.png" alt="Imagen 3" onclick="openModal(this)">
+        <p class="precio">$350.00 MXN</p>
+        <button class="boton-carrito" onclick="agregarAlCarrito('Producto 3', 350)">Agregar al carrito</button>
+      </div>
+       <!-- Producto 3 -->
+       <div class="producto">
+        <img src="/static/img/n1.png" alt="Imagen 3" onclick="openModal(this)">
+        <p class="precio">$350.00 MXN</p>
+        <button class="boton-carrito" onclick="agregarAlCarrito('Producto 3', 350)">Agregar al carrito</button>
+      </div>
+      <!-- Producto 4 -->
+      <div class="producto">
+        <img src="/static/img/n1.png" alt="Imagen 4" onclick="openModal(this)">
+        <p class="precio">$200.00 MXN</p>
+        <button class="boton-carrito" onclick="agregarAlCarrito('Producto 4', 200)">Agregar al carrito</button>
+      </div>
+      <!-- Producto 5 -->
+      <div class="producto">
+        <img src="/static/img/n1.png" alt="Imagen 6" onclick="openModal(this)">
+        <p class="precio">$250.00 MXN</p>
+        <button class="boton-carrito" onclick="agregarAlCarrito('Producto 5', 250)">Agregar al carrito</button>
+      </div>
+      <!-- Producto 6 -->
+      <div class="producto">
+        <img src="/static/img/n1.png" alt="Imagen 6" onclick="openModal(this)">
+        <p class="precio">$270.00 MXN</p>
+        <button class="boton-carrito" onclick="agregarAlCarrito('Producto 6', 270)">Agregar al carrito</button>
+      </div>
+      <!-- Producto 7 -->
+      <div class="producto">
+        <img src="/static/img/n1.png" alt="Imagen 7" onclick="openModal(this)">
+        <p class="precio">$320.00 MXN</p>
+        <button class="boton-carrito" onclick="agregarAlCarrito('Producto 7', 320)">Agregar al carrito</button>
+      </div>
+      <!-- Producto 8 -->
+      <div class="producto">
+        <img src="/static/img/n1.png" alt="Imagen 8" onclick="openModal(this)">
+        <p class="precio">$180.00 MXN</p>
+        <button class="boton-carrito" onclick="agregarAlCarrito('Producto 8', 180)">Agregar al carrito</button>
+      </div>
+      <!-- Producto 9 -->
+      <div class="producto">
+        <img src="/static/img/n1.png" alt="Imagen 6" onclick="openModal(this)">
+        <p class="precio">$290.00 MXN</p>
+        <button class="boton-carrito" onclick="agregarAlCarrito('Producto 9', 290)">Agregar al carrito</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Carta 4 -->
+<div class="carta">
+  <button class="boton-carta" onclick="toggleCartas('carta4')">Sección de ropa 4</button>
+  <div class="cartas2" id="carta4">
+    <div class="cartas-container">
+      <!-- Productos dentro de la carta 4 -->
+      <div class="producto">
+        <img src="/static/img/n1.png" alt="Imagen 4" onclick="openModal(this)">
+        <p class="precio">$400.00 MXN</p>
+        <button class="boton-carrito" onclick="agregarAlCarrito('Producto 4', 400)">Agregar al carrito</button>
+      </div>
+       <!-- Producto 3 -->
+       <div class="producto">
+        <img src="/static/img/n1.png" alt="Imagen 3" onclick="openModal(this)">
+        <p class="precio">$350.00 MXN</p>
+        <button class="boton-carrito" onclick="agregarAlCarrito('Producto 3', 350)">Agregar al carrito</button>
+      </div>
+      <!-- Producto 4 -->
+      <div class="producto">
+        <img src="/static/img/n1.png" alt="Imagen 4" onclick="openModal(this)">
+        <p class="precio">$200.00 MXN</p>
+        <button class="boton-carrito" onclick="agregarAlCarrito('Producto 4', 200)">Agregar al carrito</button>
+      </div>
+      <!-- Producto 5 -->
+      <div class="producto">
+        <img src="/static/img/n1.png" alt="Imagen 6" onclick="openModal(this)">
+        <p class="precio">$250.00 MXN</p>
+        <button class="boton-carrito" onclick="agregarAlCarrito('Producto 5', 250)">Agregar al carrito</button>
+      </div>
+      <!-- Producto 6 -->
+      <div class="producto">
+        <img src="/static/img/n1.png" alt="Imagen 6" onclick="openModal(this)">
+        <p class="precio">$270.00 MXN</p>
+        <button class="boton-carrito" onclick="agregarAlCarrito('Producto 6', 270)">Agregar al carrito</button>
+      </div>
+      <!-- Producto 7 -->
+      <div class="producto">
+        <img src="/static/img/n1.png" alt="Imagen 7" onclick="openModal(this)">
+        <p class="precio">$320.00 MXN</p>
+        <button class="boton-carrito" onclick="agregarAlCarrito('Producto 7', 320)">Agregar al carrito</button>
+      </div>
+      <!-- Producto 8 -->
+      <div class="producto">
+        <img src="/static/img/n1.png" alt="Imagen 8" onclick="openModal(this)">
+        <p class="precio">$180.00 MXN</p>
+        <button class="boton-carrito" onclick="agregarAlCarrito('Producto 8', 180)">Agregar al carrito</button>
+      </div>
+      <!-- Producto 9 -->
+      <div class="producto">
+        <img src="/static/img/n1.png" alt="Imagen 6" onclick="openModal(this)">
+        <p class="precio">$290.00 MXN</p>
+        <button class="boton-carrito" onclick="agregarAlCarrito('Producto 9', 290)">Agregar al carrito</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- fin de las skibidi tarjetas -->
+
+
+  <!-- CAMBBIAR FOOTER (ESTE ESTA TODO HORRIBLE) -->
+<br>
+<footer class="footer" id="footer">
+  <p>© 2025,JOSE ALFONSO G.J. Todos los derechos reservados.</p>
+</footer>
+<!-- fin de  TARJETAS -->
+
+{% endblock %}

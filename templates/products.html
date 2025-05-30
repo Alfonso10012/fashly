@@ -1,0 +1,195 @@
+  {% extends 'layout.html' %}
+{% block titulo %} ADMINISTRADOR {% endblock %}
+{% block contenido  %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary py-2 shadow-sm fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand letra1 fw-bold" style="color: rgb(0, 0, 0);" href="/home-admin">FASHLY</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/home-admin">
+            <i class="fa-solid fa-house fa-bounce" style="color: #000000;"></i>
+          </a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" style="color: #000000;" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">  
+            operaciones
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/sUsuario">Usuarios</a></li>
+            <li><a class="dropdown-item" href="#">Otra opción</a></li>
+            <li><hr class="dropdown-divider"></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link">{{current_user.nombre}} </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/signout" title="Salir">
+            <i class="fa-solid fa-right-from-bracket" style="color: #000000;"></i>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Buscador opcional -->
+
+    </div>
+  </div>
+</nav>
+
+<!-- Evita usar <br> para empujar la tabla -->
+<style>
+  body {
+    padding-top: 65px; /* Ajusta según el alto real de la navbar */
+  }
+</style>
+<br><br>
+
+
+
+  <div class="container">
+    {% with mensajes = get_flashed_messages() %}
+    {% if mensajes %}
+      {% for m in mensajes %}
+        <div class="alert alert-danger d-flex align-items-center" role="alert">
+          <i class="fa-solid fa-floppy-disk"></i>
+          <div>
+            {{ m }}
+          </div>
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+    <table class="table table-dark table-hover">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">NOMBRE</th>
+          <th scope="col">PRECIO</th>
+          <th scope="col">DESCRIPCION</th>
+          <th scope="col">CATALOGO_ID</th>
+          <th scope="col">NOMBRE_IMAGEN</th>
+          <th scope="col" colspan="2">
+            <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insertar">
+            <i class="fa-solid fa-user-plus"></i>
+          </button>
+          </th>
+        </tr>
+
+<!-- Modal registrar  -->
+<!-- Modal insertar producto -->
+<div class="modal fade" id="insertar" tabindex="-1" aria-labelledby="insertarLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="/iProducto" method="post">
+        <div class="modal-header">
+          <h5 class="modal-title" id="insertarLabel">Agregar Producto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <input type="text" name="nombre" class="form-control mb-2" placeholder="Nombre" required>
+          <input type="text" name="descripcion" class="form-control mb-2" placeholder="Descripción" required>
+          <input type="number" step="0.01" name="precio" class="form-control mb-2" placeholder="Precio" required>
+          <input type="number" name="catalogo_id" class="form-control mb-2" placeholder="ID Catálogo" required>
+          <input type="text" name="nombre_imagen" class="form-control mb-2" placeholder="Nombre Imagen" required>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+      </thead>
+      <tbody>
+        {%  for p in productos %}
+        <tr>
+          <th scope="row">{{p[0]}}</th>
+          <td>{{p[1]}}</td>
+          <td>{{p[2]}}</td>
+          <td>{{p[3]}}</td>
+          <td>{{p[5]}}</td>
+          <td>{{p[6]}}</td>
+          <td>{{p[7]}}</td>
+          <td> <img src="/static/img/{{p[5]}}" alt="" width="320"></td>
+          <td>
+            <!-- boton editar -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editar{{p[0]}}">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+          </td>
+          <td>
+            <!-- Button  eliminar -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#eliminar{{p[0]}}">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+            
+          </td>
+        </tr>
+        <!-- Modal editar -->
+<!-- Modal editar producto -->
+<div class="modal fade" id="editar{{p[0]}}" tabindex="-1" aria-labelledby="editarLabel{{p[0]}}" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="/uProducto/{{p[0]}}" method="post">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editarLabel{{p[0]}}">Editar Producto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <input type="text" name="nombre" value="{{p[1]}}" class="form-control mb-2" required>
+          <input type="text" name="descripcion" value="{{p[3]}}" class="form-control mb-2" required>
+          <input type="number" step="0.01" name="precio" value="{{p[2]}}" class="form-control mb-2" required>
+          <input type="number" name="catalogo_id" value="{{p[5]}}" class="form-control mb-2" required>
+          <input type="text" name="nombre_imagen" value="{{p[6]}}" class="form-control mb-2" required>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Actualizar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- button eliminar -->
+
+<!-- Modal eliminar -->
+<div class="modal fade" id="eliminar{{p[0]}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="/dProducto/{{p[0]}}" method="post">
+      <div class="modal-body">
+        <p>¿seguro que desea eliminar el usuario {{p[1]}}? <i class="fa-solid fa-skull-crossbones fa-beat-fade fa-2xl" style="color: #ff0000;"></i></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancelar</button>
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  
+{% endblock %}
