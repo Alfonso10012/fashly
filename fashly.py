@@ -429,6 +429,12 @@ def procesar_pago():
     return jsonify({'success': True})
 
 
+@fashlyApp.route('/flower')
+def flower_page():
+    return render_template('flower.html')
+
+
+
 @fashlyApp.route('/finalizar_pedido', methods=['POST'])
 @login_required
 def finalizar_pedido():

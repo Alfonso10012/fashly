@@ -282,7 +282,7 @@ button:hover {
 /* LOGO GRANDE Y PEQUEÑO */
 .navbar-brand {
   position: absolute;
-  left: 50%;
+  left: 10%;
   transform: translateX(-50%);
   font-size: 5rem;
   font-weight: 800;
@@ -708,3 +708,23 @@ button:hover {
   }
 
 
+#preloader {
+  position: fixed; /* Cubre toda la pantalla */
+  top: 0;
+  left: 0;
+  width: 100vw; /* Ancho completo del viewport */
+  height: 100vh; /* Alto completo del viewport */
+  background: #000; /* Fondo negro (opcional) */
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  z-index: 9999; /* Asegura que esté por encima de todo */
+}
+
+#preloader img {
+  max-width: 100%; /* Ajusta el ancho máximo al contenedor */
+  max-height: 100%; /* Ajusta el alto máximo al contenedor */
+  object-fit: contain; /* Muestra la imagen completa sin recortes */
+  width: auto; /* Evita deformaciones */
+  height: auto; /* Mantiene la proporción */
+}

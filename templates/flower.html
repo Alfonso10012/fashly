@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="icon" href="/static/img/flowers.png" type="image/x-icon" />
+    <link rel="stylesheet" href="{{ url_for ('static',filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for ('static',filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for ('static',filename='css/main.css') }}">
+
+    <title>Flower</title>
+  </head>
+  <body class="container">
+    <audio src="static/img/macaudio.mp4" autoplay></audio>
+    <div id="lyrics">
+     
+    </div>
+    <h1 class="titulo"><br>
+      Espero toda una vida contigo, porque cada momento a tu lado es un regalo que quiero abrazar para siempre    
+    </h1>
+  
+    <div class="night"></div>
+
+
+    <script src="anim.js"></script>
+    <script src="main.js"></script>
+
+    <script src="{{ url_for ('static',filename='js/main.js') }}"></script>
+    <script src="{{ url_for ('static',filename='js/anim.js') }}"></script>
+  </body>
+</html>
